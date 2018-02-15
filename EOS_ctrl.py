@@ -24,6 +24,10 @@ class controller:
         ret = self._return_gphoto2_('--auto-detect')
         return ret
 
+    def make_function_list(self):
+        ret = self._return_gphoto2_('--list-config')
+        return ret
+'''
     def set_mode(self, mode='P'):
         if mode=='P':
             self._send_gphoto2_('--set-config expprogram=P')
@@ -185,4 +189,5 @@ class controller:
         sfconn.close()
         conn.close()
         return
+'''
 #Written by K.Urushihara

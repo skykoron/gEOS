@@ -27,11 +27,13 @@ class controller:
     def make_function_list(self, fname='gphoto2_dict.txt', ):
         ret_list = self._return_gphoto2_('--list-config')
         ret_list = ret_list.splitlines()
+        dictionary = open(fname, 'w')
+        dictionary.close()        
         for i in ret_list:
             func = i.split('/')
             func = func[-1]
             description = self._return_gphoto2_('--get-config ' + func)
-            dictionary = open(fname, 'w')
+            dictionary = open(fname, 'a')
             try:
                 dictionary.write(func+'\n')
                 dictionary.write(description+'\n')

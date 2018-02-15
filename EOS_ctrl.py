@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import subprocess, time, datetime, paramiko
+import subprocess, time, datetime
 
 class controller:
     '''
@@ -24,9 +24,20 @@ class controller:
         ret = self._return_gphoto2_('--auto-detect')
         return ret
 
-    def make_function_list(self):
-        ret = self._return_gphoto2_('--list-config')
-        return ret
+    def make_function_list(self, fname='gphoto2_dict.txt', ):
+        ret_list = self._return_gphoto2_('--list-config')
+        ret_list = ret_list.splitlines()
+        for i in ret_list:
+            func = i.split('/')
+            func = func[-1]
+            description = self._return_gphoto2_('--get-config ' + func)
+            dictionary = open(fname, 'w')
+            try:
+                dictionary.write(func+'\n')
+                dictionary.write(description+'\n')
+            finally:
+                dictionary.close()
+        return None
 '''
     def set_mode(self, mode='P'):
         if mode=='P':
